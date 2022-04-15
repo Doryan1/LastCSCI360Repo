@@ -110,7 +110,9 @@ public class login {
 								
 						}
 							else if  (user.equals("student")) {
-								JOptionPane.showMessageDialog(null,"correct 2") ;
+								JOptionPane.showMessageDialog(null,"correct") ;
+								student stu = new student() ;
+								stu.student() ; 
 								
 					}
 					}
