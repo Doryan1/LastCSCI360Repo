@@ -109,8 +109,9 @@ public class login {
 								a.ad(); 
 								
 						}
-							else if  (user.equals("prof")) {
+							else if  (user.equals("student")) {
 								JOptionPane.showMessageDialog(null,"correct 2") ;
+								
 					}
 					}
 						else {
