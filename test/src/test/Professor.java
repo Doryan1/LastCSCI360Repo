@@ -15,12 +15,15 @@ import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class Professor extends JFrame {
 
 	private JPanel contentPane;
 	private JTable pTable;
 	private JTable gTable;
+	private JTextField gText;
 
 	/**
 	 * Launch the application.
@@ -93,6 +96,15 @@ public class Professor extends JFrame {
 		gTable = new JTable(); // grade table
 		gTable.setBounds(119, 11, 300, 211); 
 		panel_2.add(gTable);
+		
+		JLabel GLabel = new JLabel("Grade:");
+		GLabel.setBounds(10, 161, 46, 14);
+		panel_2.add(GLabel);
+		
+		gText = new JTextField();
+		gText.setBounds(13, 186, 86, 20);
+		panel_2.add(gText);
+		gText.setColumns(10);
 		
 	}
 }
