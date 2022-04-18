@@ -104,26 +104,29 @@ public class login {
 					}
 					if (count ==1){
 							if (user.equals("admin")) {
-								JOptionPane.showMessageDialog(null,"correct") ;
+								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Admin Manager Database") ;
 								admin a = new admin() ; 
 								a.ad(); 
 								
 						}
 							else if  (user.equals("professor")) { 
-								JOptionPane.showMessageDialog(null,"correct") ;
+								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Professor Database") ;
 								Professor p = new Professor() ;
 								p.run() ; 
 					}
 							else if  (user.equals("student")) { 
-								JOptionPane.showMessageDialog(null,"correct") ;
+								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Student Database") ;
 								Student s = new Student() ;
 								s.run() ; 
 					}
 							else if  (user.equals("staff")) { 
-								JOptionPane.showMessageDialog(null,"correct") ;
+								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Staff Database") ;
 								Staff st = new Staff() ;
 								st.run() ; 
 					}
+							else if (user.equals("TA")) {
+								JOptionPane.showMessageDialog(null, "Username Correct. Now entering the TA Database") ; 
+							}
 							
 							
 					}

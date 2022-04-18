@@ -64,12 +64,7 @@ public class Staff extends JFrame {
 					ResultSet rs = pst.executeQuery() ; 
 					table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
 					}
-					else {
-						String query = "SELECT * from staff WHERE fname LIKE '%"+search+"%'" ; 
-						PreparedStatement pst = db.prepareStatement(query) ; 
-						ResultSet rs = pst.executeQuery() ; 
-						table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
-					}
+					
 					
 					
 				} catch (Exception e1) {
