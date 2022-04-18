@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -14,11 +17,16 @@ import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Professor extends JFrame {
 	static Connection db = null ; 
@@ -37,6 +45,7 @@ public class Professor extends JFrame {
 				try {
 					Professor frame = new Professor();
 					frame.setVisible(true);
+					frame.setSize(900,602);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,6 +88,26 @@ public class Professor extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		tfSearch = new JTextField();
+		tfSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String search = tfSearch.getText() ;
+				
+				try {
+					if(search.matches("^[0-9]+$")) {
+					String query = "SELECT * from Professor where id= " + search ; 
+					PreparedStatement pst = db.prepareStatement(query) ; 
+					ResultSet rs = pst.executeQuery() ; 
+					table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
+					}
+					
+					
+					
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1) ; 
+				}
+			}
+		});
 		tfSearch.setBounds(10, 19, 130, 26);
 		panel.add(tfSearch);
 		tfSearch.setColumns(10);
@@ -106,7 +135,7 @@ public class Professor extends JFrame {
 		panel_2.add(bUp);
 		
 		gTable = new JTable(); // grade table
-		gTable.setBounds(119, 11, 300, 211); 
+		gTable.setBounds(119, 11, 335, 248); 
 		panel_2.add(gTable);
 		
 		JLabel GLabel = new JLabel("Grade:");
