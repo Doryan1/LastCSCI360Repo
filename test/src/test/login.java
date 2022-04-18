@@ -126,6 +126,8 @@ public class login {
 					}
 							else if (user.equals("TA")) {
 								JOptionPane.showMessageDialog(null, "Username Correct. Now entering the TA Database") ; 
+								TA t  = new TA() ;
+								t.run() ; 
 							}
 							
 							

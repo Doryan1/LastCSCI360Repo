@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Professor extends JFrame {
+public class TA extends JFrame {
 	static Connection db = null ; 
 	private JPanel contentPane;
 	private JTable table;
@@ -46,7 +46,7 @@ public class Professor extends JFrame {
 			public void run() {
 				db = database.dbConnector() ;
 				try {
-					Professor frame = new Professor();
+					TA frame = new TA();
 					frame.setVisible(true);
 					frame.setSize(900,602);
 					frame.setLocationRelativeTo(null);
@@ -57,8 +57,8 @@ public class Professor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Professor() {
-		setTitle("Professor");
+	public TA() {
+		setTitle("TA Database");
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +77,7 @@ public class Professor extends JFrame {
 		
 		JPanel panel = new JPanel(); // professor info pane
 		panel.setBackground(new Color(135, 206, 250));
-		tabbedPane.addTab("Professors", null, panel, null);
+		tabbedPane.addTab("Ta's", null, panel, null);
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -98,7 +98,7 @@ public class Professor extends JFrame {
 				
 				try {
 					if(search.matches("^[0-9]+$")) {
-					String query = "SELECT * from Professor where id= " + search ; 
+					String query = "SELECT * from TA where id= " + search ; 
 					PreparedStatement pst = db.prepareStatement(query) ; 
 					ResultSet rs = pst.executeQuery() ; 
 					table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
