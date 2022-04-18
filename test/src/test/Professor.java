@@ -23,9 +23,10 @@ import javax.swing.JScrollPane;
 public class Professor extends JFrame {
 	static Connection db = null ; 
 	private JPanel contentPane;
-	private JTable pTable;
+	private JTable table;
 	private JTable gTable;
 	private JTextField gText;
+	private JTextField tfSearch;
 
 	/**
 	 * Launch the application.
@@ -67,16 +68,20 @@ public class Professor extends JFrame {
 		tabbedPane.addTab("Professors", null, panel, null);
 		panel.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Display"); // display button
-		btnNewButton_1.setBounds(10, 11, 89, 23);
-		panel.add(btnNewButton_1);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 57, 409, 165);
+		panel.add(scrollPane_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 57, 409, 165);
-		panel.add(scrollPane);
+		scrollPane_1.setViewportView(scrollPane);
 		
-		pTable = new JTable();
-		scrollPane.setViewportView(pTable);
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		tfSearch = new JTextField();
+		tfSearch.setBounds(10, 19, 130, 26);
+		panel.add(tfSearch);
+		tfSearch.setColumns(10);
 		
 		JPanel panel_2 = new JPanel(); // grades table
 		panel_2.setBackground(new Color(135, 206, 250));

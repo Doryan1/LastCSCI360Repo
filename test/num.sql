@@ -9,3 +9,4 @@ SELECT Numerical_Grade, CASE
 	ELSE 'F' 
 	END  Letter_Grade , id, course, semester
 FROM Student 
+

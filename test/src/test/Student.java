@@ -65,8 +65,7 @@ public class Student extends JFrame {
 					PreparedStatement pst = db.prepareStatement(query) ; 
 					ResultSet rs = pst.executeQuery() ; 
 					table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
-//					UpdateStaff()  ;
-					
+//					GradeUpdate() ; 					
 					}
 					
 					
@@ -91,7 +90,7 @@ public class Student extends JFrame {
 		contentPane.add(btnExit);
 	}
 	
-	protected static void Gradepdate() {
+	protected static void GradeUpdate() {
 		String query = "SELECT Numerical_Grade, CASE\n"
 				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\n"
 				+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\n"
