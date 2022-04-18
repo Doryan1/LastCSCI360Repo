@@ -13,13 +13,15 @@ import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 public class Professor extends JFrame {
-
+	static Connection db = null ; 
 	private JPanel contentPane;
 	private JTable pTable;
 	private JTable gTable;
@@ -28,23 +30,24 @@ public class Professor extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
+				db = database.dbConnector() ;
 				try {
 					Professor frame = new Professor();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public Professor() {
+		setTitle("Professor");
+		setResizable(false);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -52,6 +55,7 @@ public class Professor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(new Color(176, 224, 230));
@@ -67,9 +71,12 @@ public class Professor extends JFrame {
 		btnNewButton_1.setBounds(10, 11, 89, 23);
 		panel.add(btnNewButton_1);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 57, 409, 165);
+		panel.add(scrollPane);
+		
 		pTable = new JTable();
-		pTable.setBounds(10, 57, 409, 165); 
-		panel.add(pTable); // prof table
+		scrollPane.setViewportView(pTable);
 		
 		JPanel panel_2 = new JPanel(); // grades table
 		panel_2.setBackground(new Color(135, 206, 250));

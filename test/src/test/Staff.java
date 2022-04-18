@@ -2,9 +2,6 @@ package test;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,23 +13,26 @@ import net.proteanit.sql.DbUtils;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-public class Student extends JFrame {
+public class Staff extends JFrame {
 	static Connection db = null ; 
 	private JPanel contentPane;
 	private JTextField tFsearch;
-	private static JTable table;
+	private JTable table;
 
 	/**
 	 * Launch the application.
 	 */
+
 			public void run() {
 				db = database.dbConnector() ;
 				try {
-					Student frame = new Student();
+					Staff frame = new Staff();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -40,12 +40,10 @@ public class Student extends JFrame {
 				}
 			}
 
-
 	/**
 	 * Create the frame.
 	 */
-	public Student() {
-		setTitle("student");
+	public Staff() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -61,10 +59,16 @@ public class Student extends JFrame {
 				
 				try {
 					if(search.matches("^[0-9]+$")) {
-					String query = "SELECT * from Student where id= " + search ; 
+					String query = "SELECT * from staff where id= " + search ; 
 					PreparedStatement pst = db.prepareStatement(query) ; 
 					ResultSet rs = pst.executeQuery() ; 
 					table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
+					}
+					else {
+						String query = "SELECT * from staff WHERE fname LIKE '%"+search+"%'" ; 
+						PreparedStatement pst = db.prepareStatement(query) ; 
+						ResultSet rs = pst.executeQuery() ; 
+						table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
 					}
 					
 					
@@ -73,44 +77,15 @@ public class Student extends JFrame {
 				}
 			}
 		});
-		tFsearch.setBounds(10, 125, 86, 20);
+		tFsearch.setBounds(22, 132, 86, 20);
 		contentPane.add(tFsearch);
 		tFsearch.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(118, 11, 306, 239);
+		scrollPane.setBounds(146, 24, 288, 226);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(7, 227, 89, 23);
-		contentPane.add(btnExit);
-	}
-	
-	protected static void UpdateStaff() {
-//		String query = "SELECT Numerical_Grade, CASE\r\n"
-//				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"
-//				+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\r\n"
-//				+ "	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN \"B\"\r\n"
-//				+ "	WHEN Numerical_Grade <80 AND Numerical_Grade >= 75 THEN \"C+\"\r\n"
-//				+ "	WHEN Numerical_Grade <75 AND Numerical_Grade >= 70 THEN \"C\"\r\n"
-//				+ "	WHEN Numerical_Grade <70 AND Numerical_Grade >= 65 THEN \"D+\"\r\n"
-//				+ "	WHEN Numerical_Grade <65 AND Numerical_Grade >= 60 THEN \"D\"\r\n"
-//				+ "	ELSE 'F' \r\n"
-//				+ "	END UPDATE Letter_Grade\r\n"
-//				+ "FROM Student" ; 
-		String query = "UPDATE Letter_Grade From Student where Numerical_Grade >=90 THEN 'a'" ; 
-		
-		try {
-			PreparedStatement pst = db.prepareStatement(query) ; 
-			ResultSet rs = pst.executeQuery() ; 
-			table.setModel(DbUtils.resultSetToTableModel(rs)) ; 
-	
-			
-		}catch (Exception e) {
-			e.printStackTrace() ;
-		}
 	}
 }

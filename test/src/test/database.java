@@ -10,7 +10,7 @@ public class database {
 		try {
 			Class.forName("org.sqlite.JDBC") ; 
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:project.db") ;
-			JOptionPane.showMessageDialog(null, "THIS SOFTWARE IS NOT TO BE USED FOR UNIVERSITY MANAGEMENT PURPOSE");
+//			JOptionPane.showMessageDialog(null, "THIS SOFTWARE IS NOT TO BE USED FOR UNIVERSITY MANAGEMENT PURPOSE");
 			JOptionPane.showMessageDialog(null, "Database Connection Successful");
 			return conn ; 
 		}catch (Exception e)  {

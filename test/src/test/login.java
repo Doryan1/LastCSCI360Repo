@@ -109,12 +109,23 @@ public class login {
 								a.ad(); 
 								
 						}
-							else if  (user.equals("student")) {
+							else if  (user.equals("professor")) { 
 								JOptionPane.showMessageDialog(null,"correct") ;
-								student stu = new student() ;
-								stu.student() ; 
-								
+								Professor p = new Professor() ;
+								p.run() ; 
 					}
+							else if  (user.equals("student")) { 
+								JOptionPane.showMessageDialog(null,"correct") ;
+								Student s = new Student() ;
+								s.run() ; 
+					}
+							else if  (user.equals("staff")) { 
+								JOptionPane.showMessageDialog(null,"correct") ;
+								Staff st = new Staff() ;
+								st.run() ; 
+					}
+							
+							
 					}
 						else {
 							lblMessage.setText("\"ID NOT Recognized, Please Try Again\"");
