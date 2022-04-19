@@ -1,22 +1,18 @@
 package test;
 
 import java.awt.EventQueue;
-
-import java.sql.* ; 
-import javax.swing.* ;
+import java.sql.*;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent; 
+import java.awt.event.ActionEvent;
 
 public class login {
-
 	private JFrame frmDatabaseLogin;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) { // Launch the application
+		JOptionPane.showMessageDialog(null, "THIS SOFTWARE IS NOT TO BE USED FOR UNIVERSITY MANAGEMENT PURPOSE",
+				"Disclaimer", JOptionPane.INFORMATION_MESSAGE);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -28,30 +24,21 @@ public class login {
 			}
 		});
 	}
-	/**
-	 * Create the application.
-	 */
-	//this calls the connector from the database.java
-	Connection db = null ; 
+
+	// Create the application; This calls the connector from the database.java
+	Connection db = null;
 	private JTextField tFLogin;
-	
 	PreparedStatement pst = null;
-	ResultSet rs = null ; 
-	
-	@SuppressWarnings("unused")
+	ResultSet rs = null;
+
 	public login() {
 		initialize();
-		//calls the dbconnector connection form database.java
-		db = database.dbConnector() ; 
+		db = database.dbConnector(); // Calls the dbconnector connection form database.java
 		PreparedStatement pst = null;
-		ResultSet rs = null ; 
-		
+		ResultSet rs = null;
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private void initialize() { // Initialize the contents of the frame.
 		frmDatabaseLogin = new JFrame();
 		frmDatabaseLogin.setVisible(true);
 		frmDatabaseLogin.setTitle("Database Login");
@@ -62,86 +49,84 @@ public class login {
 		frmDatabaseLogin.getContentPane().setLayout(null);
 		frmDatabaseLogin.setResizable(false);
 		frmDatabaseLogin.setLocationRelativeTo(null);
-		
-		
-		JLabel lblLogin = new JLabel("login");
+
+		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblLogin.setBounds(10, 45, 89, 53);
 		frmDatabaseLogin.getContentPane().add(lblLogin);
-		
+
 		tFLogin = new JTextField();
 		tFLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		tFLogin.setBounds(71, 65, 148, 20);
 		frmDatabaseLogin.getContentPane().add(tFLogin);
 		tFLogin.setColumns(10);
-		
+
 		JLabel lblMessage = new JLabel("");
 		lblMessage.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblMessage.setForeground(new Color(255, 0, 102));
 		lblMessage.setBounds(10, 126, 344, 25);
 		frmDatabaseLogin.getContentPane().add(lblMessage);
-		
-		JButton btnQuit = new JButton("quit");
+
+		JButton btnQuit = new JButton("Quit");
 		btnQuit.setBounds(229, 79, 103, 40);
 		frmDatabaseLogin.getContentPane().add(btnQuit);
 		btnQuit.addActionListener(new exit());
-		
-		JButton btnLogin = new JButton("login");
+
+		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(229, 31, 103, 37);
 		frmDatabaseLogin.getContentPane().add(btnLogin);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String user = tFLogin.getText() ;
+				String user = tFLogin.getText();
 				try {
 					String query = "Select * from Login where ID =?";
-					PreparedStatement pst = db.prepareStatement(query) ; 
-					pst.setString(1,tFLogin.getText()) ; 
-					
-					ResultSet rs  = pst.executeQuery() ;
-					int count = 0 ; 
+					PreparedStatement pst = db.prepareStatement(query);
+					pst.setString(1, tFLogin.getText());
+					ResultSet rs = pst.executeQuery();
+					int count = 0;
 					while (rs.next()) {
-						count = count + 1 ; 
+						count = count + 1;
 					}
-					if (count ==1){
-							if (user.equals("admin")) {
-								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Admin Manager Database") ;
-								admin a = new admin() ; 
-								a.ad(); 
-								
+					if (count == 1) {
+						switch(user) {
+							case "admin":
+								JOptionPane.showMessageDialog(null,
+										"Login successful. Now entering the admin manager database");
+								admin a = new admin();
+								a.ad();
+								break;
+							case "professor":
+								JOptionPane.showMessageDialog(null,
+										"Login successful. Now entering the professor database");
+								Professor p = new Professor();
+								p.run();
+								break;
+							case "student":
+								JOptionPane.showMessageDialog(null, "Login successful. Now entering the student database");
+								Student s = new Student();
+								s.run();
+								break;
+							case "staff":
+								JOptionPane.showMessageDialog(null, "Login successful. Now entering the staff database");
+								Staff st = new Staff();
+								st.run();
+								break;
+							case "TA":
+								JOptionPane.showMessageDialog(null, "Login successful. Now entering the TA database");
+								TA t = new TA();
+								t.run();
+								break;
 						}
-							else if  (user.equals("professor")) { 
-								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Professor Database") ;
-								Professor p = new Professor() ;
-								p.run() ; 
+						frmDatabaseLogin.dispose();
+					} else {
+						lblMessage.setText("\"ID not recognized, please try again\"");
 					}
-							else if  (user.equals("student")) { 
-								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Student Database") ;
-								Student s = new Student() ;
-								s.run() ; 
-					}
-							else if  (user.equals("staff")) { 
-								JOptionPane.showMessageDialog(null,"Username Correct. Now entering the Staff Database") ;
-								Staff st = new Staff() ;
-								st.run() ; 
-					}
-							else if (user.equals("TA")) {
-								JOptionPane.showMessageDialog(null, "Username Correct. Now entering the TA Database") ; 
-								TA t  = new TA() ;
-								t.run() ; 
-							}
-							
-							
-					}
-						else {
-							lblMessage.setText("\"ID NOT Recognized, Please Try Again\"");
-						}
-							rs.close() ; 
-							pst.close() ; 
-							
-					}catch(Exception e){
-					JOptionPane.showMessageDialog(null, e) ;
+					rs.close();
+					pst.close();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e);
 				}
 			}
-		}) ;
-}
+		});
+	}
 }
