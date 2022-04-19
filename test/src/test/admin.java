@@ -1,73 +1,27 @@
 package test;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.logging.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import net.proteanit.sql.DbUtils;
-import java.awt.Dimension;
-import java.awt.Font;
+import net.proteanit.sql.*;
 
 public class admin implements ActionListener {
-	static Connection db = null;
-	@SuppressWarnings("unused")
-	private static JLabel Userlabel;
-	private static JLabel intro;
+	private static JTable tableTA, tableStaff, tableprof;
+	private JTextField txtFNProf, txtIDProf, txtLNProf, txtDOBProf, txtCTeachingProf, txtCTaughtProf, txtDepartmentProf, txtTAProf;
+	private JTextField txtFNTA, txtIDTA, txtLNTA, txtDOBTA, txtCAssistingTA, txtCAssistedTA, txtDepartmentTA;
+	private JTextField txtIDStaff, txtFNStaff, txtLNStaff, txtDOBStaff, txtDepartmentStaff;
+	private JPanel adminprofpanel, admintapanel, adminstudentpanel, adminstaffpanel;
+	private JLabel lblNewLabelProf, lblThisIsFor_2, lblThisIsFor_1, lblThisIsFor;
+	private JTabbedPane tabbedPane;
+	private JScrollPane scrollPane;
+	protected Object insertProfessor;
 	public static JTextField userText;
 	public static JButton LogInbutton;
 	static int LogSuccess;
-	private JTabbedPane tabbedPane;
-	private JPanel adminprofpanel;
-	private JPanel admintapanel;
-	private JPanel adminstudentpanel;
-	private JPanel adminstaffpanel;
-	private JLabel lblNewLabelProf;
-	private JLabel lblThisIsFor_2;
-	private JLabel lblThisIsFor_1;
-	private JLabel lblThisIsFor;
-	private JButton returnbtn;
-	private JButton re5;
-	private JButton re4;
-	private JButton btnReturnProf;
-	private static JTable tableprof;
-	private JScrollPane scrollPane;
-	private JTextField txtFNProf;
-	private JTextField txtIDProf;
-	private JTextField txtLNProf;
-	private JTextField txtDOBProf;
-	private JTextField txtCTeachingProf;
-	private JTextField txtCTaughtProf;
-	private JTextField txtDepartmentProf;
-	private JTextField txtTAProf;
-	protected Object insertProfessor;
+	static Connection db = null;
 	static PreparedStatement pst = null;
 	static ResultSet rs = null;
-	private JTextField txtFNTA;
-	private JTextField txtIDTA;
-	private JTextField txtLNTA;
-	private JTextField txtDOBTA;
-	private JTextField txtCAssistingTA;
-	private JTextField txtCAssistedTA;
-	private JTextField txtDepartmentTA;
-	private static JTable tableTA;
-	private static JTable tableStaff;
-	private JTextField txtIDStaff;
-	private JTextField txtFNStaff;
-	private JTextField txtLNStaff;
-	private JTextField txtDOBStaff;
-	private JTextField txtDepartmentStaff;
 
 	/**
 	 * @throws SQLException
@@ -103,13 +57,12 @@ public class admin implements ActionListener {
 			}
 		});
 		btnExitProf.setBounds(806, 473, 63, 23);
-		btnExitProf.addActionListener(new quit());
+		btnExitProf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		adminprofpanel.add(btnExitProf);
-		/*
-		 btnReturnProf = new JButton("return"); btnReturnProf.setBounds(806, 439, 63,
-		 23); adminprofpanel.add(btnReturnProf); btnReturnProf.addActionListener(new
-		 quit()) ;
-		 */
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 323, 792, 188);
 		adminprofpanel.add(scrollPane);
@@ -301,17 +254,12 @@ public class admin implements ActionListener {
 			}
 		});
 		btnExitTA.setBounds(806, 473, 63, 23);
-		btnExitTA.addActionListener(new exit());
-		adminprofpanel_1.add(btnExitTA);
-
-		JButton btnReturnTA = new JButton("return");
-		btnReturnTA.addActionListener(new ActionListener() {
+		btnExitTA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
-		btnReturnTA.setBounds(806, 439, 63, 23);
-		btnReturnTA.addActionListener(new exit());
-		adminprofpanel_1.add(btnReturnTA);
+		adminprofpanel_1.add(btnExitTA);
 
 		txtFNTA = new JTextField();
 		txtFNTA.setColumns(10);
@@ -491,12 +439,11 @@ public class admin implements ActionListener {
 		JButton exitStaff = new JButton("EXIT");
 		exitStaff.setBounds(780, 477, 89, 23);
 		adminstaffpanel.add(exitStaff);
-		exitStaff.addActionListener(new exit());
-
-		JButton returnStaff = new JButton("return");
-		returnStaff.setBounds(681, 477, 89, 23);
-		adminstaffpanel.add(returnStaff);
-		returnStaff.addActionListener(new refresh());
+		exitStaff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(209, 78, 660, 379);
@@ -634,7 +581,6 @@ public class admin implements ActionListener {
 		});
 		btnUpdateStaff.setBounds(209, 48, 151, 23);
 		adminstaffpanel.add(btnUpdateStaff);
-		returnStaff.addActionListener(new refresh());
 
 		adminstudentpanel = new JPanel();
 		adminstudentpanel.setBackground(new Color(240, 255, 255));
@@ -648,12 +594,11 @@ public class admin implements ActionListener {
 		JButton exit3 = new JButton("EXIT");
 		exit3.setBounds(790, 488, 89, 23);
 		adminstudentpanel.add(exit3);
-
-		re4 = new JButton("return");
-		re4.setBounds(790, 454, 89, 23);
-		adminstudentpanel.add(re4);
-		re4.addActionListener(new refresh());
-		exit3.addActionListener(new exit());
+		exit3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		frame.setVisible(true);
 	}
 

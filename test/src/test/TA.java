@@ -1,40 +1,19 @@
 package test;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import net.proteanit.sql.DbUtils;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import java.awt.Dimension;
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import net.proteanit.sql.*;
+import java.awt.event.*;
+import java.sql.*;
 
 public class TA extends JFrame {
-	static Connection db = null;
+	private static final long serialVersionUID = -6270910708524833970L;
+	private JTextField tfSearch, txtID, txtCourse, txtSemester, txtNumber;
 	private JPanel contentPane;
 	private JTable table;
 	private static JTable tablestudent;
-	private JTextField tfSearch;
-	private JTextField txtID;
-	private JTextField txtCourse;
-	private JTextField txtSemester;
-	private JTextField txtNumber;
+	static Connection db = null;
 
 	public void run() { //Launch the application
 		db = database.dbConnector();
@@ -192,6 +171,7 @@ public class TA extends JFrame {
 		JButton btnExit = new JButton("EXIT");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 		btnExit.setBounds(10, 337, 89, 23);

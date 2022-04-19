@@ -1,27 +1,17 @@
 package test;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import net.proteanit.sql.DbUtils;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import net.proteanit.sql.*;
+import java.awt.event.*;
 
 public class Student extends JFrame {
-	static Connection db = null;
+	private static final long serialVersionUID = 8897923336313218109L;
 	private JPanel contentPane;
 	private JTextField tFsearch;
 	private static JTable table;
+	static Connection db = null;
 	
 	public void run() { //Launch the application
 		db = database.dbConnector();
@@ -73,6 +63,11 @@ public class Student extends JFrame {
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(7, 227, 89, 23);
 		contentPane.add(btnExit);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 	protected static void GradeUpdate() {

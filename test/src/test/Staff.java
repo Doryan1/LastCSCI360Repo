@@ -1,26 +1,17 @@
 package test;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import net.proteanit.sql.DbUtils;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import javax.swing.*;
+import javax.swing.border.*;
+import net.proteanit.sql.*;
+import java.awt.event.*;
+import java.sql.*;
 
 public class Staff extends JFrame {
-	static Connection db = null;
+	private static final long serialVersionUID = 5884631419523922771L;
 	private JPanel contentPane;
 	private JTextField tFsearch;
 	private JTable table;
+	static Connection db = null;
 
 	public void run() { //Launch the application
 		db = database.dbConnector();

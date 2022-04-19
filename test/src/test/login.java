@@ -1,12 +1,9 @@
 package test;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 public class login {
 	private JFrame frmDatabaseLogin;
@@ -34,8 +31,6 @@ public class login {
 	public login() {
 		initialize();
 		db = database.dbConnector(); // Calls the dbconnector connection form database.java
-		PreparedStatement pst = null;
-		ResultSet rs = null;
 	}
 
 	private void initialize() { // Initialize the contents of the frame.
@@ -70,7 +65,11 @@ public class login {
 		JButton btnQuit = new JButton("Quit");
 		btnQuit.setBounds(229, 79, 103, 40);
 		frmDatabaseLogin.getContentPane().add(btnQuit);
-		btnQuit.addActionListener(new exit());
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(229, 31, 103, 37);
