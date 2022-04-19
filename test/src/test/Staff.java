@@ -1,5 +1,4 @@
 package test;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import net.proteanit.sql.*;
