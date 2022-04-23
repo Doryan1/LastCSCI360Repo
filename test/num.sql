@@ -1,4 +1,4 @@
-SELECT Numerical_Grade, CASE
+SELECT id, course, semester, Numerical_Grade, CASE
 	WHEN Numerical_Grade >=90 THEN "A"
 	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN "B+"
 	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN "B"
@@ -7,6 +7,6 @@ SELECT Numerical_Grade, CASE
 	WHEN Numerical_Grade <70 AND Numerical_Grade >= 65 THEN "D+"
 	WHEN Numerical_Grade <65 AND Numerical_Grade >= 60 THEN "D"
 	ELSE 'F' 
-	END  Letter_Grade , id, course, semester
+	END AS  Letter_Grade
 FROM Student 
 

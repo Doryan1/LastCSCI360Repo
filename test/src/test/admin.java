@@ -787,15 +787,25 @@ public class admin implements ActionListener {
 	}
 	
 	protected static void UpdateStudent() {
-		String query = "select *  from Student";
-		try {
-			pst = db.prepareStatement(query);
-			rs = pst.executeQuery();
-			tableStudent.setModel(DbUtils.resultSetToTableModel(rs));
-		} catch (Exception e) {
-			e.printStackTrace();
+			String query = "SELECT id, course, semester, Numerical_Grade, CASE\r\n"
+					+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"
+					+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\r\n"
+					+ "	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN \"B\"\r\n"
+					+ "	WHEN Numerical_Grade <80 AND Numerical_Grade >= 75 THEN \"C+\"\r\n"
+					+ "	WHEN Numerical_Grade <75 AND Numerical_Grade >= 70 THEN \"C\"\r\n"
+					+ "	WHEN Numerical_Grade <70 AND Numerical_Grade >= 65 THEN \"D+\"\r\n"
+					+ "	WHEN Numerical_Grade <65 AND Numerical_Grade >= 60 THEN \"D\"\r\n"
+					+ "	ELSE 'F' \r\n"
+					+ "	END AS  Letter_Grade\r\n"
+					+ "FROM Student" ;  
+			try {
+				PreparedStatement pst = db.prepareStatement(query);
+				ResultSet rs = pst.executeQuery();
+				tableStudent.setModel(DbUtils.resultSetToTableModel(rs));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-	}
 
 	protected void setVisible(boolean b) {
 		
