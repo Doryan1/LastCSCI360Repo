@@ -21,6 +21,14 @@ public class admin implements ActionListener {
 	static Connection db = null;
 	static PreparedStatement pst = null;
 	static ResultSet rs = null;
+	private JTextField tfIDstudent;
+	private JTextField tfFNstudent;
+	private JTextField tfLNstudent;
+	private JTextField tfDOBstudent;
+	private JTextField tfCourseStudent;
+	private JTextField tfSemesterStudent;
+	private JTextField tfNumberGradeStudent;
+	private static JTable tableStudent;
 
 	/**
 	 * @throws SQLException
@@ -31,14 +39,14 @@ public class admin implements ActionListener {
 		JFrame frame = new JFrame("Admin Manager");
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
-		frame.setSize(900, 602);
+		frame.setSize(937, 636);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 22, 884, 539);
+		tabbedPane.setBounds(0, 22, 911, 564);
 		panel.add(tabbedPane);
 
 		adminprofpanel = new JPanel();
@@ -244,7 +252,7 @@ public class admin implements ActionListener {
 		JPanel adminprofpanel_1 = new JPanel();
 		adminprofpanel_1.setLayout(null);
 		adminprofpanel_1.setBackground(Color.CYAN);
-		adminprofpanel_1.setBounds(0, 0, 879, 511);
+		adminprofpanel_1.setBounds(0, 0, 906, 536);
 		admintapanel.add(adminprofpanel_1);
 
 		JButton btnExitTA = new JButton("EXIT");
@@ -580,24 +588,168 @@ public class admin implements ActionListener {
 		});
 		btnUpdateStaff.setBounds(209, 48, 151, 23);
 		adminstaffpanel.add(btnUpdateStaff);
-
-		adminstudentpanel = new JPanel();
-		adminstudentpanel.setBackground(new Color(240, 255, 255));
-		tabbedPane.addTab("Student Manager", null, adminstudentpanel, null);
-		adminstudentpanel.setLayout(null);
-
-		lblThisIsFor_1 = new JLabel("This is for student");
-		lblThisIsFor_1.setBounds(75, 96, 198, 14);
-		adminstudentpanel.add(lblThisIsFor_1);
-
-		JButton exit3 = new JButton("EXIT");
-		exit3.setBounds(790, 488, 89, 23);
-		adminstudentpanel.add(exit3);
-		exit3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		
+				adminstudentpanel = new JPanel();
+				adminstudentpanel.setBackground(new Color(240, 255, 255));
+				tabbedPane.addTab("Student Manager", null, adminstudentpanel, null);
+				adminstudentpanel.setLayout(null);
+				
+						lblThisIsFor_1 = new JLabel("This is for student");
+						lblThisIsFor_1.setBounds(12, 11, 198, 14);
+						adminstudentpanel.add(lblThisIsFor_1);
+						
+								JButton exit3 = new JButton("EXIT");
+								exit3.setBounds(817, 513, 89, 23);
+								adminstudentpanel.add(exit3);
+								
+								tfIDstudent = new JTextField();
+								tfIDstudent.setColumns(10);
+								tfIDstudent.setBounds(21, 56, 189, 38);
+								adminstudentpanel.add(tfIDstudent);
+								
+								tfFNstudent = new JTextField();
+								tfFNstudent.setColumns(10);
+								tfFNstudent.setBounds(21, 109, 189, 38);
+								adminstudentpanel.add(tfFNstudent);
+								
+								tfLNstudent = new JTextField();
+								tfLNstudent.setColumns(10);
+								tfLNstudent.setBounds(21, 172, 189, 38);
+								adminstudentpanel.add(tfLNstudent);
+								
+								tfDOBstudent = new JTextField();
+								tfDOBstudent.setColumns(10);
+								tfDOBstudent.setBounds(21, 234, 189, 38);
+								adminstudentpanel.add(tfDOBstudent);
+								
+								tfCourseStudent = new JTextField();
+								tfCourseStudent.setColumns(10);
+								tfCourseStudent.setBounds(21, 365, 189, 38);
+								adminstudentpanel.add(tfCourseStudent);
+								
+								tfSemesterStudent = new JTextField();
+								tfSemesterStudent.setColumns(10);
+								tfSemesterStudent.setBounds(21, 414, 189, 38);
+								adminstudentpanel.add(tfSemesterStudent);
+								
+								tfNumberGradeStudent = new JTextField();
+								tfNumberGradeStudent.setColumns(10);
+								tfNumberGradeStudent.setBounds(21, 463, 189, 38);
+								adminstudentpanel.add(tfNumberGradeStudent);
+								
+								JScrollPane scrollPane_3 = new JScrollPane();
+								scrollPane_3.setBounds(232, 56, 674, 449);
+								adminstudentpanel.add(scrollPane_3);
+								
+								tableStudent = new JTable();
+								scrollPane_3.setViewportView(tableStudent);
+								
+								JLabel lblNewLabel = new JLabel("ID");
+								lblNewLabel.setBounds(21, 41, 46, 14);
+								adminstudentpanel.add(lblNewLabel);
+								
+								JLabel lblNewLabel_1 = new JLabel("First Name");
+								lblNewLabel_1.setBounds(21, 95, 79, 14);
+								adminstudentpanel.add(lblNewLabel_1);
+								
+								JLabel lblNewLabel_2 = new JLabel("Last Name");
+								lblNewLabel_2.setBounds(21, 158, 79, 14);
+								adminstudentpanel.add(lblNewLabel_2);
+								
+								JLabel lblNewLabel_3 = new JLabel("DOB");
+								lblNewLabel_3.setBounds(21, 221, 65, 14);
+								adminstudentpanel.add(lblNewLabel_3);
+								
+								JLabel lblNewLabel_4 = new JLabel("Course");
+								lblNewLabel_4.setBounds(21, 352, 79, 14);
+								adminstudentpanel.add(lblNewLabel_4);
+								
+								JLabel lblNewLabel_5 = new JLabel("Semester");
+								lblNewLabel_5.setBounds(21, 402, 79, 14);
+								adminstudentpanel.add(lblNewLabel_5);
+								
+								JLabel lblNGStudent = new JLabel("Numerical Grade");
+								lblNGStudent.setBounds(21, 451, 95, 14);
+								adminstudentpanel.add(lblNGStudent);
+								
+								JButton btnDeleteStudent = new JButton("Delete");
+								btnDeleteStudent.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										int row = tableStudent.getSelectedRow();
+										String cell = tableStudent.getModel().getValueAt(row, 0).toString();
+										String query = "DELETE FROM Student where id = " + cell;
+										try {
+											PreparedStatement pst = db.prepareStatement(query);
+											pst.execute();
+											JOptionPane.showMessageDialog(null, "input deleted");
+											UpdateStudent();
+										} catch (Exception e4) {
+											e4.printStackTrace();
+										}
+									}
+								});
+								btnDeleteStudent.setBounds(807, 32, 89, 23);
+								adminstudentpanel.add(btnDeleteStudent);
+								
+								JButton btnModifyStudent = new JButton("Modify");
+								btnModifyStudent.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+									}
+								});
+								btnModifyStudent.setBounds(697, 32, 89, 23);
+								adminstudentpanel.add(btnModifyStudent);
+								
+								JButton btnAddStudent = new JButton("Add");
+								btnAddStudent.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										try {
+											String query = " insert into Student (id,department,fname,lname,dob) values (?,?,?,?,?) ";
+											pst = db.prepareStatement(query); // pst is called at the top as a static
+											pst.setString(1, txtIDStaff.getText());
+											pst.setString(2, txtDepartmentStaff.getText());
+											pst.setString(3, txtFNStaff.getText());
+											pst.setString(4, txtLNStaff.getText());
+											pst.setString(5, txtDOBStaff.getText());
+											pst.execute();
+											JOptionPane.showMessageDialog(null, "input saved");
+											UpdateStaff();
+											pst.close();
+										} catch (Exception e1) {
+											JOptionPane.showMessageDialog(null, " ID must be unique,  Try Again Please ");
+											JOptionPane.showMessageDialog(null, e1);
+										}
+									}
+								});
+								btnAddStudent.setBounds(583, 32, 89, 23);
+								adminstudentpanel.add(btnAddStudent);
+								
+								JButton btnUpdateStudent = new JButton("Update Table");
+								btnUpdateStudent.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										try {
+											UpdateStudent();
+										} catch (Exception e3) {
+											e3.printStackTrace();
+										}
+									}
+								});
+								btnUpdateStudent.setBounds(231, 32, 136, 23);
+								adminstudentpanel.add(btnUpdateStudent);
+								
+								JLabel lblNewLabel_6 = new JLabel("Enter Student Grades Here");
+								lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 12));
+								lblNewLabel_6.setBounds(33, 310, 189, 14);
+								adminstudentpanel.add(lblNewLabel_6);
+								
+								JLabel lblNewLabel_7 = new JLabel("Please Enter One Class at a Time");
+								lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));
+								lblNewLabel_7.setBounds(21, 326, 205, 14);
+								adminstudentpanel.add(lblNewLabel_7);
+								exit3.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										System.exit(0);
+									}
+								});
 		frame.setVisible(true);
 	}
 
@@ -629,6 +781,17 @@ public class admin implements ActionListener {
 			pst = db.prepareStatement(query);
 			rs = pst.executeQuery();
 			tableStaff.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected static void UpdateStudent() {
+		String query = "select *  from Student";
+		try {
+			pst = db.prepareStatement(query);
+			rs = pst.executeQuery();
+			tableStudent.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
