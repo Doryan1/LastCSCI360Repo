@@ -76,12 +76,16 @@ public class Student extends JFrame {
 				String fn = tFsearch.getText() ; 
 				String ln = tFsearch2.getText() ; 
 				try {
-					String query = "SELECT First_Name,Last_Name,DOB,course,semester,Numerical_Grade FROM Student where First_Name LIKE '%"+fn+"%'" + "AND  Last_Name like '%"+ln+"%'" ; 
-					PreparedStatement pst = db.prepareStatement(query);
+					//this if statement makes sure only he student with the specified first name and last name can see their grades 
+					if(ln.matches("^[A-Za-z0-9_.]+$")) {
+					String query = "SELECT First_Name,Last_Name,DOB,course,semester,Numerical_Grade, Letter_Grade FROM Student where First_Name LIKE '%"+fn+"%'AND  Last_Name like '%"+ln+"%'"  ; 
+						PreparedStatement pst = db.prepareStatement(query);
 					ResultSet rs = pst.executeQuery();
 					table.setModel(DbUtils.resultSetToTableModel(rs));
-					GradeUpdate() ; 
-					
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "student not found , make sure first name and last name is entered") ; 
+					}
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "student not found") ; 
 					JOptionPane.showMessageDialog(null, e1);
@@ -113,7 +117,7 @@ public class Student extends JFrame {
 	}
 
 	protected static void GradeUpdate() {
-		String query = "SELECT First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
+		String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"
 				+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\r\n"
 				+ "	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN \"B\"\r\n"
@@ -123,7 +127,7 @@ public class Student extends JFrame {
 				+ "	WHEN Numerical_Grade <65 AND Numerical_Grade >= 60 THEN \"D\"\r\n"
 				+ "	ELSE 'F' \r\n"
 				+ "	END AS  Letter_Grade\r\n"
-				+ "FROM Student" ;  
+				+ "FROM Student" ; 
 		try {
 			PreparedStatement pst = db.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
