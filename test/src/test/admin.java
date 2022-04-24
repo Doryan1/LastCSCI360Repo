@@ -542,8 +542,12 @@ public class admin implements ActionListener {
 					String value3 = txtFNStaff.getText();
 					String value4 = txtLNStaff.getText();
 					String value5 = txtDOBStaff.getText();
-					String query = "update staff set id='" + value1 + "',department='" + value2 + "',fname = '" + value3
-							+ "',lname='" + value4 + "',dob= '" + value5 + "' where id='" + value1 + "' ";
+					String query = "update staff set id='" + value1 
+							+ "',department='" + value2 
+							+ "',fname = '" + value3
+							+ "',lname='" + value4 
+							+ "',dob= '" + value5 
+							+ "'where id='" + value1 + "' ";
 					pst = db.prepareStatement(query);
 					pst.execute();
 					JOptionPane.showMessageDialog(null, "input modified");
@@ -694,6 +698,33 @@ public class admin implements ActionListener {
 								JButton btnModifyStudent = new JButton("Modify");
 								btnModifyStudent.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										try {
+											String value1 = tfIDstudent.getText();
+											String value2 = tfFNstudent.getText();
+											String value3 = tfLNstudent.getText();
+											String value4 = tfDOBstudent.getText();
+											String value5 = tfCourseStudent.getText();
+											String value6 = tfSemesterStudent.getText();
+											String value7 = tfNumberGradeStudent.getText();
+											String query = "update Student set id='" + value1 
+													+ "',First_Name='" + value2 
+													+ "',Last_Name= '" + value3
+													+ "',DOB ='" + value4 
+													+ "',course= '" + value5 
+													+ "',semester= '" + value6 
+													+ "',Numerical_Grade= '" + value7 
+													+ "'where id='" + value1 
+												    +  "' ";
+											pst = db.prepareStatement(query);
+											pst.execute();
+											JOptionPane.showMessageDialog(null, "input modified");
+											UpdateStudent();
+											pst.close();
+											
+										} catch (Exception e5) {
+											e5.printStackTrace();
+											JOptionPane.showMessageDialog(null, "input not modified");
+										}
 									}
 								});
 								btnModifyStudent.setBounds(697, 32, 89, 23);
@@ -703,16 +734,18 @@ public class admin implements ActionListener {
 								btnAddStudent.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										try {
-											String query = " insert into Student (id,department,fname,lname,dob) values (?,?,?,?,?) ";
+											String query = " insert into Student (id,First_Name, Last_Name, DOB, course, semester, Numerical_Grade) values (?,?,?,?,?,?,?) " ;
 											pst = db.prepareStatement(query); // pst is called at the top as a static
-											pst.setString(1, txtIDStaff.getText());
-											pst.setString(2, txtDepartmentStaff.getText());
-											pst.setString(3, txtFNStaff.getText());
-											pst.setString(4, txtLNStaff.getText());
-											pst.setString(5, txtDOBStaff.getText());
+											pst.setString(1, tfIDstudent.getText());
+											pst.setString(2, tfFNstudent.getText());
+											pst.setString(3, tfLNstudent.getText());
+											pst.setString(4, tfDOBstudent.getText());
+											pst.setString(5, tfCourseStudent.getText()) ; 
+											pst.setString(6, tfSemesterStudent.getText()) ; 
+											pst.setString(7, tfNumberGradeStudent.getText()) ; 
 											pst.execute();
 											JOptionPane.showMessageDialog(null, "input saved");
-											UpdateStaff();
+											UpdateStudent();
 											pst.close();
 										} catch (Exception e1) {
 											JOptionPane.showMessageDialog(null, " ID must be unique,  Try Again Please ");
@@ -787,7 +820,7 @@ public class admin implements ActionListener {
 	}
 	
 	protected static void UpdateStudent() {
-			String query = "SELECT id, course, semester, Numerical_Grade, CASE\r\n"
+			String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 					+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"
 					+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\r\n"
 					+ "	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN \"B\"\r\n"
