@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/PC/OneDrive/Documents/GitHub/360/LastCSCI360Repo/rs2xml.jar"/>
-	<classpathentry kind="lib" path="C:/Users/PC/OneDrive/Documents/GitHub/360/LastCSCI360Repo/sqlite-jdbc-3.36.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Noahv/Desktop/CSCI-360/LastCSCI360Repo/rs2xml.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Noahv/Desktop/CSCI-360/LastCSCI360Repo/sqlite-jdbc-3.36.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
