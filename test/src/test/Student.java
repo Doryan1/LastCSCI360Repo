@@ -28,7 +28,7 @@ public class Student extends JFrame {
 	public Student() { //Create the window
 		setTitle("student");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 784, 440);
+		setBounds(100, 100, 952, 440);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,7 +55,7 @@ public class Student extends JFrame {
 		tFsearch.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(196, 57, 562, 287);
+		scrollPane.setBounds(196, 57, 730, 287);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -107,7 +107,7 @@ public class Student extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Hello Student, Please Type in your First and Last Name To view Your Grades");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(104, 22, 502, 14);
+		lblNewLabel_2.setBounds(195, 32, 502, 14);
 		contentPane.add(lblNewLabel_2);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

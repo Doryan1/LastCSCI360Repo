@@ -4,6 +4,7 @@ import javax.swing.border.*;
 import net.proteanit.sql.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.awt.Font;
 
 public class Staff extends JFrame {
 	private static final long serialVersionUID = 5884631419523922771L;
@@ -25,7 +26,7 @@ public class Staff extends JFrame {
 	
 	public Staff() { //Create the window
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 729, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -46,13 +47,27 @@ public class Staff extends JFrame {
 				}
 			}
 		});
-		tFsearch.setBounds(22, 132, 86, 20);
+		tFsearch.setBounds(10, 127, 117, 20);
 		contentPane.add(tFsearch);
 		tFsearch.setColumns(10);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(146, 24, 288, 226);
+		scrollPane.setBounds(146, 24, 557, 226);
 		contentPane.add(scrollPane);
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		JButton btnExit = new JButton("EXIT");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(19, 214, 89, 23);
+		contentPane.add(btnExit);
+		
+		JLabel lblNewLabel = new JLabel("Enter Staff ID Here");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setBounds(10, 107, 124, 14);
+		contentPane.add(lblNewLabel);
 	}
 }
