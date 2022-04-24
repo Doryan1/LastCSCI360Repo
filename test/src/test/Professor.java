@@ -8,30 +8,37 @@ import java.sql.*;
 
 public class Professor extends JFrame {
 	private static final long serialVersionUID = -3921679502744638683L;
-	private JTextField tfSearch, txtID, txtCourse, txtSemester, txtNumber;
 	private JPanel contentPane;
-	private JTable table;
-	private static JTable tablestudent;
 	static Connection db = null;
+	private JTextField tfID;
+	private JTextField tfFN;
+	private JTextField tfLN;
+	private JTextField tfDOB;
+	private JTextField tfCourse;
+	private JTextField tfSemester;
+	private JTextField tfNumberGrade;
+	private JTextField txtTypeInProfessor;
+	private static JTable tableProf;
+	private static JTable tableStudent;
 
 	public void run() { //Launch the application
 		db = database.dbConnector();
 		try {
 			Professor frame = new Professor();
 			frame.setVisible(true);
-			frame.setSize(900, 602);
+			frame.setSize(978,630);
 			frame.setLocationRelativeTo(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public Professor() { //Create the window
+	public Professor() {
+		setResizable(false); //Create the window
 		setTitle("Professor");
-		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 663, 445);
+		setBounds(100, 100, 978, 609);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,89 +46,137 @@ public class Professor extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 974, 584);
 		tabbedPane.setBackground(new Color(176, 224, 230));
-		tabbedPane.setBounds(0, 0, 641, 399);
 		contentPane.add(tabbedPane);
-
-		JPanel panel = new JPanel(); // Professor info pane
-		panel.setBackground(new Color(135, 206, 250));
-		tabbedPane.addTab("Professors", null, panel, null);
+		
+		JPanel panel = new JPanel();
 		panel.setLayout(null);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 57, 409, 165);
-		panel.add(scrollPane_1);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane_1.setViewportView(scrollPane);
-
-		table = new JTable();
-		scrollPane.setViewportView(table);
-
-		tfSearch = new JTextField();
-		tfSearch.addKeyListener(new KeyAdapter() {
+		panel.setBackground(new Color(135, 206, 250));
+		tabbedPane.addTab("Professor Search", null, panel, null);
+		
+		txtTypeInProfessor = new JTextField();
+		txtTypeInProfessor.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyReleased(KeyEvent e) {
-				String search = tfSearch.getText();
+				String search = txtTypeInProfessor.getText();
 				try {
 					if (search.matches("^[0-9]+$")) {
 						String query = "SELECT * from Professor where id= " + search;
 						PreparedStatement pst = db.prepareStatement(query);
 						ResultSet rs = pst.executeQuery();
-						table.setModel(DbUtils.resultSetToTableModel(rs));
+						tableProf.setModel(DbUtils.resultSetToTableModel(rs));
 					}
-
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1);
 				}
 			}
 		});
-		tfSearch.setBounds(10, 19, 130, 26);
-		panel.add(tfSearch);
-		tfSearch.setColumns(10);
-
-		JPanel panel_2 = new JPanel(); // grades table
-		panel_2.setBackground(new Color(135, 206, 250));
-		tabbedPane.addTab("Grades", null, panel_2, null);
-		panel_2.setLayout(null);
-
-		JButton btnAdd = new JButton("Add"); // add grade button
-		btnAdd.addActionListener(new ActionListener() {
+		txtTypeInProfessor.setText("Type In Professor ID To Search");
+		txtTypeInProfessor.setForeground(Color.GRAY);
+		txtTypeInProfessor.setColumns(10);
+		txtTypeInProfessor.setBounds(10, 19, 190, 26);
+		panel.add(txtTypeInProfessor);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 70, 650, 330);
+		panel.add(scrollPane);
+		
+		tableProf = new JTable();
+		scrollPane.setViewportView(tableProf);
+		
+		JButton btnExit1 = new JButton("EXIT");
+		btnExit1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
-		btnAdd.setBounds(10, 191, 89, 23);
-		panel_2.add(btnAdd);
-
-		JButton btnMod = new JButton("Modify"); // modify grade button
-		btnMod.addActionListener(new ActionListener() {
+		btnExit1.setBounds(567, 411, 89, 23);
+		panel.add(btnExit1);
+		
+		JPanel profGradTab = new JPanel();
+		profGradTab.setLayout(null);
+		profGradTab.setBackground(new Color(240, 255, 255));
+		tabbedPane.addTab("Student Manager", null, profGradTab, null);
+		
+		JButton btnExit2 = new JButton("EXIT");
+		btnExit2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					String value1 = txtID.getText();
-					String value2 = txtCourse.getText();
-					String value3 = txtSemester.getText();
-					String value4 = txtNumber.getText();
-					String query = "update Student set id='" + value1 + "',department='" + value2 + "',fname = '"
-							+ value3 + "',lname='" + value4 + "'where id='" + value1 + "' ";
-					PreparedStatement pst = db.prepareStatement(query);
-					pst.execute();
-					JOptionPane.showMessageDialog(null, "input modified");
-					pst.close();
-					UpdateStudent();
-				} catch (Exception e5) {
-					e5.printStackTrace();
-				}
+				System.exit(0);
 			}
 		});
-
-		btnMod.setBounds(10, 225, 89, 23);
-		panel_2.add(btnMod);
-
-		JButton btnDel = new JButton("Delete"); // delete grade button
-		btnDel.addActionListener(new ActionListener() {
+		btnExit2.setBounds(869, 517, 89, 23);
+		profGradTab.add(btnExit2);
+		
+		tfID = new JTextField();
+		tfID.setColumns(10);
+		tfID.setBounds(21, 56, 189, 38);
+		profGradTab.add(tfID);
+		
+		tfFN = new JTextField();
+		tfFN.setColumns(10);
+		tfFN.setBounds(21, 109, 189, 38);
+		profGradTab.add(tfFN);
+		
+		tfLN = new JTextField();
+		tfLN.setColumns(10);
+		tfLN.setBounds(21, 172, 189, 38);
+		profGradTab.add(tfLN);
+		
+		tfDOB = new JTextField();
+		tfDOB.setColumns(10);
+		tfDOB.setBounds(21, 234, 189, 38);
+		profGradTab.add(tfDOB);
+		
+		tfCourse = new JTextField();
+		tfCourse.setColumns(10);
+		tfCourse.setBounds(21, 365, 189, 38);
+		profGradTab.add(tfCourse);
+		
+		tfSemester = new JTextField();
+		tfSemester.setColumns(10);
+		tfSemester.setBounds(21, 414, 189, 38);
+		profGradTab.add(tfSemester);
+		
+		tfNumberGrade = new JTextField();
+		tfNumberGrade.setColumns(10);
+		tfNumberGrade.setBounds(21, 463, 189, 38);
+		profGradTab.add(tfNumberGrade);
+		
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setBounds(21, 41, 46, 14);
+		profGradTab.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("First Name");
+		lblNewLabel_1.setBounds(21, 95, 79, 14);
+		profGradTab.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Last Name");
+		lblNewLabel_2.setBounds(21, 158, 79, 14);
+		profGradTab.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("DOB");
+		lblNewLabel_3.setBounds(21, 221, 65, 14);
+		profGradTab.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Course");
+		lblNewLabel_4.setBounds(21, 352, 79, 14);
+		profGradTab.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Semester");
+		lblNewLabel_5.setBounds(21, 402, 79, 14);
+		profGradTab.add(lblNewLabel_5);
+		
+		JLabel lblNGStudent = new JLabel("Numerical Grade");
+		lblNGStudent.setBounds(21, 451, 95, 14);
+		profGradTab.add(lblNGStudent);
+		
+		JButton btnDeleteStudent = new JButton("Delete");
+		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int row = tablestudent.getSelectedRow();
-				String cell = tablestudent.getModel().getValueAt(row, 0).toString();
-				String query = "DELETE FROM student where id = " + cell;
+				int row = tableStudent.getSelectedRow();
+				String cell = tableStudent.getModel().getValueAt(row, 0).toString();
+				String query = "DELETE FROM Student where id = " + cell;
 				try {
 					PreparedStatement pst = db.prepareStatement(query);
 					pst.execute();
@@ -132,10 +187,72 @@ public class Professor extends JFrame {
 				}
 			}
 		});
-		btnDel.setBounds(10, 259, 89, 23);
-		panel_2.add(btnDel);
-		JButton btnUp = new JButton("Update"); // update table button
-		btnUp.addActionListener(new ActionListener() {
+		btnDeleteStudent.setBounds(807, 32, 89, 23);
+		profGradTab.add(btnDeleteStudent);
+		
+		JButton btnModifyStudent = new JButton("Modify");
+		btnModifyStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String value1 = tfID.getText();
+					String value2 = tfFN.getText();
+					String value3 = tfLN.getText();
+					String value4 = tfDOB.getText();
+					String value5 = tfCourse.getText();
+					String value6 = tfSemester.getText();
+					String value7 = tfNumberGrade.getText();
+					String query = "update Student set id='" + value1 
+							+ "',First_Name='" + value2 
+							+ "',Last_Name= '" + value3
+							+ "',DOB ='" + value4 
+							+ "',course= '" + value5 
+							+ "',semester= '" + value6 
+							+ "',Numerical_Grade= '" + value7 
+							+ "'where id='" + value1 
+						    +  "' ";
+					PreparedStatement pst = db.prepareStatement(query);
+					pst.execute();
+					JOptionPane.showMessageDialog(null, "input modified");
+					UpdateStudent();
+					pst.close();
+					
+				} catch (Exception e5) {
+					e5.printStackTrace();
+					JOptionPane.showMessageDialog(null, "input not modified");
+				}
+			}
+		});
+		btnModifyStudent.setBounds(697, 32, 89, 23);
+		profGradTab.add(btnModifyStudent);
+		
+		JButton btnAddStudent = new JButton("Add");
+		btnAddStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String query = " insert into Student (id,First_Name, Last_Name, DOB, course, semester, Numerical_Grade) values (?,?,?,?,?,?,?) " ;
+					PreparedStatement pst = db.prepareStatement(query); // pst is called at the top as a static
+					pst.setString(1, tfID.getText());
+					pst.setString(2, tfFN.getText());
+					pst.setString(3, tfLN.getText());
+					pst.setString(4, tfDOB.getText());
+					pst.setString(5, tfCourse.getText()) ; 
+					pst.setString(6, tfSemester.getText()) ; 
+					pst.setString(7, tfNumberGrade.getText()) ; 
+					pst.execute();
+					JOptionPane.showMessageDialog(null, "input saved");
+					UpdateStudent();
+					pst.close();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, " ID must be unique,  Try Again Please ");
+					JOptionPane.showMessageDialog(null, e1);
+				}
+			}
+		});
+		btnAddStudent.setBounds(583, 32, 89, 23);
+		profGradTab.add(btnAddStudent);
+		
+		JButton btnUpdateStudent = new JButton("Update Table");
+		btnUpdateStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					UpdateStudent();
@@ -144,69 +261,53 @@ public class Professor extends JFrame {
 				}
 			}
 		});
-		btnUp.setBounds(10, 293, 89, 23);
-		panel_2.add(btnUp);
-
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(119, 108, 507, 252);
-		panel_2.add(scrollPane_2);
-
-		tablestudent = new JTable();
-		scrollPane_2.setViewportView(tablestudent);
-
-		JButton btnExit = new JButton("EXIT");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(10, 337, 89, 23);
-		panel_2.add(btnExit);
-
-		txtID = new JTextField();
-		txtID.setBounds(119, 44, 96, 20);
-		panel_2.add(txtID);
-		txtID.setColumns(10);
-
-		txtCourse = new JTextField();
-		txtCourse.setBounds(241, 44, 96, 20);
-		panel_2.add(txtCourse);
-		txtCourse.setColumns(10);
-
-		txtSemester = new JTextField();
-		txtSemester.setBounds(362, 44, 96, 20);
-		panel_2.add(txtSemester);
-		txtSemester.setColumns(10);
-
-		txtNumber = new JTextField();
-		txtNumber.setBounds(482, 44, 96, 20);
-		panel_2.add(txtNumber);
-		txtNumber.setColumns(10);
-
-		JLabel lblNewLabel = new JLabel("ID");
-		lblNewLabel.setBounds(119, 29, 48, 14);
-		panel_2.add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("course");
-		lblNewLabel_1.setBounds(253, 29, 48, 14);
-		panel_2.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_2 = new JLabel("semester");
-		lblNewLabel_2.setBounds(378, 29, 48, 14);
-		panel_2.add(lblNewLabel_2);
-
-		JLabel lblNewLabel_3 = new JLabel("number grade");
-		lblNewLabel_3.setBounds(505, 29, 48, 14);
-		panel_2.add(lblNewLabel_3);
+		btnUpdateStudent.setBounds(231, 32, 136, 23);
+		profGradTab.add(btnUpdateStudent);
+		
+		JLabel lblNewLabel_6 = new JLabel("Enter Student Grades Here");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_6.setBounds(33, 310, 189, 14);
+		profGradTab.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Please Enter One Class at a Time");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_7.setBounds(21, 326, 205, 14);
+		profGradTab.add(lblNewLabel_7);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(241, 68, 717, 438);
+		profGradTab.add(scrollPane_1);
+		
+		tableStudent = new JTable();
+		scrollPane_1.setViewportView(tableStudent);
 	}
 
-	protected static void UpdateStudent() {
-		String query = "select *  from Student";
+	protected static void UpdateProfessor() {
+		String query = "select *  from Professor";
 		try {
 			PreparedStatement pst = db.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
-			tablestudent.setModel(DbUtils.resultSetToTableModel(rs));
-
+			tableProf.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	protected static void UpdateStudent() {
+		String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
+				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"
+				+ "	WHEN Numerical_Grade <90 AND Numerical_Grade >= 85 THEN \"B+\"\r\n"
+				+ "	WHEN Numerical_Grade <85 AND Numerical_Grade >= 80 THEN \"B\"\r\n"
+				+ "	WHEN Numerical_Grade <80 AND Numerical_Grade >= 75 THEN \"C+\"\r\n"
+				+ "	WHEN Numerical_Grade <75 AND Numerical_Grade >= 70 THEN \"C\"\r\n"
+				+ "	WHEN Numerical_Grade <70 AND Numerical_Grade >= 65 THEN \"D+\"\r\n"
+				+ "	WHEN Numerical_Grade <65 AND Numerical_Grade >= 60 THEN \"D\"\r\n"
+				+ "	ELSE 'F' \r\n"
+				+ "	END AS  Letter_Grade\r\n"
+				+ "FROM Student" ;  
+		try {
+			PreparedStatement pst = db.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			tableStudent.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

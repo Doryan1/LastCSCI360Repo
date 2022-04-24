@@ -77,7 +77,7 @@ public class login {
 			public void actionPerformed(ActionEvent arg0) {
 				String user = tFLogin.getText();
 				try {
-					String query = "Select * from Login where ID =?";
+					String query = "Select * from Login where id =?";
 					PreparedStatement pst = db.prepareStatement(query);
 					pst.setString(1, tFLogin.getText());
 					ResultSet rs = pst.executeQuery();
