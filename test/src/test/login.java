@@ -80,7 +80,7 @@ public class login {
 		
 		JLabel lblNewLabel_2 = new JLabel("Please login depending on your roll");
 		lblNewLabel_2.setFont(new Font("Source Sans Pro", Font.ITALIC, 26));
-		lblNewLabel_2.setBounds(46, 97, 400, 80);
+		lblNewLabel_2.setBounds(31, 102, 605, 80);
 		frmDatabaseLogin.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblMessage = new JLabel("");
