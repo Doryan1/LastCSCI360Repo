@@ -35,10 +35,10 @@ public class login {
 	private void initialize() { // Initialize the contents of the frame.
 		frmDatabaseLogin = new JFrame();
 		frmDatabaseLogin.setVisible(true);
-		frmDatabaseLogin.setTitle("Database Login");
+		frmDatabaseLogin.setTitle("FRANK - The Database Manager");
 		frmDatabaseLogin.getContentPane().setBackground(Color.GREEN);
 		frmDatabaseLogin.setBackground(Color.PINK);
-		frmDatabaseLogin.setBounds(100, 100, 370, 195);
+		frmDatabaseLogin.setBounds(100, 100, 502, 363);
 		frmDatabaseLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDatabaseLogin.getContentPane().setLayout(null);
 		frmDatabaseLogin.setResizable(false);
@@ -46,23 +46,17 @@ public class login {
 
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblLogin.setBounds(10, 45, 89, 53);
+		lblLogin.setBounds(31, 207, 89, 53);
 		frmDatabaseLogin.getContentPane().add(lblLogin);
 
 		tFLogin = new JTextField();
 		tFLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		tFLogin.setBounds(71, 65, 148, 20);
+		tFLogin.setBounds(130, 221, 148, 33);
 		frmDatabaseLogin.getContentPane().add(tFLogin);
 		tFLogin.setColumns(10);
 
-		JLabel lblMessage = new JLabel("");
-		lblMessage.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblMessage.setForeground(new Color(255, 0, 102));
-		lblMessage.setBounds(10, 126, 344, 25);
-		frmDatabaseLogin.getContentPane().add(lblMessage);
-
 		JButton btnQuit = new JButton("Quit");
-		btnQuit.setBounds(229, 79, 103, 40);
+		btnQuit.setBounds(324, 247, 103, 40);
 		frmDatabaseLogin.getContentPane().add(btnQuit);
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,8 +65,29 @@ public class login {
 		});
 
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(229, 31, 103, 37);
+		btnLogin.setBounds(324, 199, 103, 37);
 		frmDatabaseLogin.getContentPane().add(btnLogin);
+		
+		JLabel lblNewLabel = new JLabel("WELCOME TO FRANK");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel.setBounds(123, 11, 265, 33);
+		frmDatabaseLogin.getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("The Database Manager");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(163, 49, 174, 14);
+		frmDatabaseLogin.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Please login depending on your roll");
+		lblNewLabel_2.setFont(new Font("Source Sans Pro", Font.ITALIC, 26));
+		lblNewLabel_2.setBounds(46, 97, 400, 80);
+		frmDatabaseLogin.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblMessage = new JLabel("");
+		lblMessage.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblMessage.setForeground(Color.RED);
+		lblMessage.setBounds(81, 283, 306, 40);
+		frmDatabaseLogin.getContentPane().add(lblMessage);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String user = tFLogin.getText();

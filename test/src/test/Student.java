@@ -109,6 +109,16 @@ public class Student extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_2.setBounds(195, 32, 502, 14);
 		contentPane.add(lblNewLabel_2);
+		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut.setBounds(106, 367, 89, 23);
+		contentPane.add(btnLogOut);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

@@ -5,6 +5,7 @@ import net.proteanit.sql.*;
 import java.awt.event.*;
 import java.sql.*;
 import java.awt.Font;
+import java.awt.Color;
 
 public class Staff extends JFrame {
 	private static final long serialVersionUID = 5884631419523922771L;
@@ -12,6 +13,8 @@ public class Staff extends JFrame {
 	private JTextField tFsearch;
 	private JTable table;
 	static Connection db = null;
+	private JLabel lblNewLabel_1;
+	private JButton btnLogOut;
 
 	public void run() { //Launch the application
 		db = database.dbConnector();
@@ -28,6 +31,7 @@ public class Staff extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 729, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.GREEN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -69,5 +73,19 @@ public class Staff extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setBounds(10, 107, 124, 14);
 		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("Hi Staff, Please Enter Your ID in the TextBox Below");
+		lblNewLabel_1.setBounds(146, 11, 435, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		btnLogOut = new JButton("LOG OUT");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut.setBounds(19, 180, 89, 23);
+		contentPane.add(btnLogOut);
 	}
 }

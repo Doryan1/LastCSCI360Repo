@@ -63,7 +63,7 @@ public class admin implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnExitProf.setBounds(806, 473, 63, 23);
+		btnExitProf.setBounds(806, 473, 90, 23);
 		btnExitProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -243,6 +243,16 @@ public class admin implements ActionListener {
 		txtTAProf.setColumns(10);
 		txtTAProf.setBounds(680, 190, 163, 38);
 		adminprofpanel.add(txtTAProf);
+		
+		JButton btnLogOut = new JButton("LOG OUT");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut.setBounds(806, 444, 90, 23);
+		adminprofpanel.add(btnLogOut);
 
 		admintapanel = new JPanel();
 		admintapanel.setBackground(new Color(255, 250, 250));
@@ -260,7 +270,7 @@ public class admin implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnExitTA.setBounds(806, 473, 63, 23);
+		btnExitTA.setBounds(806, 473, 90, 23);
 		btnExitTA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -433,6 +443,16 @@ public class admin implements ActionListener {
 
 		tableTA = new JTable();
 		scrollPane_1.setViewportView(tableTA);
+		
+		JButton btnLogOut_1 = new JButton("LOG OUT");
+		btnLogOut_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut_1.setBounds(806, 439, 90, 23);
+		adminprofpanel_1.add(btnLogOut_1);
 
 		adminstaffpanel = new JPanel();
 		adminstaffpanel.setBackground(new Color(250, 250, 210));
@@ -592,6 +612,16 @@ public class admin implements ActionListener {
 		});
 		btnUpdateStaff.setBounds(209, 48, 151, 23);
 		adminstaffpanel.add(btnUpdateStaff);
+		
+		JButton btnLogOut_2 = new JButton("LOG OUT");
+		btnLogOut_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose() ; 
+				new login() ;
+			}
+		});
+		btnLogOut_2.setBounds(681, 477, 89, 23);
+		adminstaffpanel.add(btnLogOut_2);
 		
 				adminstudentpanel = new JPanel();
 				adminstudentpanel.setBackground(new Color(240, 255, 255));
@@ -778,6 +808,16 @@ public class admin implements ActionListener {
 								lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));
 								lblNewLabel_7.setBounds(21, 326, 205, 14);
 								adminstudentpanel.add(lblNewLabel_7);
+								
+								JButton btnLogOut_3 = new JButton("LOG OUT");
+								btnLogOut_3.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										frame.dispose() ; 
+										new login() ; 
+									}
+								});
+								btnLogOut_3.setBounds(697, 513, 89, 23);
+								adminstudentpanel.add(btnLogOut_3);
 								exit3.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										System.exit(0);

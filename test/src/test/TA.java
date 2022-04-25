@@ -94,6 +94,16 @@ public class TA extends JFrame {
 		btnExit1.setBounds(567, 411, 89, 23);
 		panel.add(btnExit1);
 		
+		JButton btnLogOut = new JButton("LOG OUT");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut.setBounds(468, 411, 89, 23);
+		panel.add(btnLogOut);
+		
 		JPanel profGradTab = new JPanel();
 		profGradTab.setLayout(null);
 		profGradTab.setBackground(new Color(240, 255, 255));
@@ -280,6 +290,16 @@ public class TA extends JFrame {
 		
 		tableStudent = new JTable();
 		scrollPane_1.setViewportView(tableStudent);
+		
+		JButton btnLogOut_1 = new JButton("LOG OUT");
+		btnLogOut_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose() ; 
+				new login() ; 
+			}
+		});
+		btnLogOut_1.setBounds(753, 517, 89, 23);
+		profGradTab.add(btnLogOut_1);
 	}
 
 	protected static void UpdateTA() {
