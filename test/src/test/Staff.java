@@ -1,3 +1,6 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the staff gui is to allow staff to search their data based on their ID. They arent allowed to modify any data so they can only search like the students.
 package test;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -40,6 +43,7 @@ public class Staff extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				String search = tFsearch.getText();
 				try {
+					//this if statement is based on numbers only. It will not accept letters
 					if (search.matches("^[0-9]+$")) {
 						String query = "SELECT * from staff where id= " + search;
 						PreparedStatement pst = db.prepareStatement(query);

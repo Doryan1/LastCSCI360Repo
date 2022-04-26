@@ -1,3 +1,8 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the TA gui is to allow the professor to see their data and for the professor to add,modify,delete the grades of students
+// TA and Professsor are basically the same roles
+
 package test;
 import java.awt.*;
 import javax.swing.*;
@@ -34,6 +39,7 @@ public class TA extends JFrame {
 	}
 
 	public TA() {
+		//main gui layout designed by Noah V, later altered slightly
 		setResizable(false); //Create the window
 		setTitle("TA");
 		setLocationRelativeTo(null);
@@ -61,6 +67,7 @@ public class TA extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				String search = txtTA.getText();
 				try {
+					//this if statement is based on numbers only. It will not accept letters
 					if (search.matches("^[0-9]+$")) {
 						String query = "SELECT * from TA where id= " + search;
 						PreparedStatement pst = db.prepareStatement(query);
@@ -181,6 +188,8 @@ public class TA extends JFrame {
 		lblNGStudent.setBounds(21, 451, 95, 14);
 		profGradTab.add(lblNGStudent);
 		
+		
+		//uses the cell clicked on to gather the data of the row. If button pressed , all data in that row is deleted. 
 		JButton btnDeleteStudent = new JButton("Delete");
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,6 +209,8 @@ public class TA extends JFrame {
 		btnDeleteStudent.setBounds(807, 32, 89, 23);
 		profGradTab.add(btnDeleteStudent);
 		
+		
+		//modify checks to see if id is matching the input wanting to be modified, if the ID matched it will change the differnt inputs and save it into the database
 		JButton btnModifyStudent = new JButton("Modify");
 		btnModifyStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -236,6 +247,7 @@ public class TA extends JFrame {
 		profGradTab.add(btnModifyStudent);
 		
 		JButton btnAddStudent = new JButton("Add");
+		//add only works if the ID is unique, will check every textfield and add the data to the database if the id is unique
 		btnAddStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -312,6 +324,7 @@ public class TA extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	//grade update is used to calculate what the letter grade will be based on the number grade given by the user.
 	protected static void UpdateStudent() {
 		String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"

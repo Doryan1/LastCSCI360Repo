@@ -1,3 +1,7 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the professor gui is to allow the professor to see their data and for the professor to add,modify,delete the grades of students
+
 package test;
 import java.awt.*;
 import javax.swing.*;
@@ -22,6 +26,7 @@ public class Professor extends JFrame {
 	private static JTable tableStudent;
 
 	public void run() { //Launch the application
+		//connects the class with the database
 		db = database.dbConnector();
 		try {
 			Professor frame = new Professor();
@@ -34,6 +39,7 @@ public class Professor extends JFrame {
 	}
 
 	public Professor() {
+		//main gui layout designed by Adam K, later altered slightly
 		setResizable(false); //Create the window
 		setTitle("Professor");
 		setLocationRelativeTo(null);
@@ -58,9 +64,11 @@ public class Professor extends JFrame {
 		txtTypeInProfessor = new JTextField();
 		txtTypeInProfessor.addKeyListener(new KeyAdapter() {
 			@Override
+			//uses keyreleased to automatically pop up data after user is done typing
 			public void keyReleased(KeyEvent e) {
 				String search = txtTypeInProfessor.getText();
 				try {
+					//this if statement is based on numbers only. It will not accept letters
 					if (search.matches("^[0-9]+$")) {
 						String query = "SELECT * from Professor where id= " + search;
 						PreparedStatement pst = db.prepareStatement(query);
@@ -181,6 +189,7 @@ public class Professor extends JFrame {
 		lblNGStudent.setBounds(21, 451, 95, 14);
 		profGradTab.add(lblNGStudent);
 		
+		//uses the cell clicked on to gather the data of the row. If button pressed , all data in that row is deleted. 
 		JButton btnDeleteStudent = new JButton("Delete");
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,6 +209,8 @@ public class Professor extends JFrame {
 		btnDeleteStudent.setBounds(807, 32, 89, 23);
 		profGradTab.add(btnDeleteStudent);
 		
+		
+		//modify checks to see if id is matching the input wanting to be modified, if the ID matched it will change the differnt inputs and save it into the database
 		JButton btnModifyStudent = new JButton("Modify");
 		btnModifyStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -235,6 +246,7 @@ public class Professor extends JFrame {
 		btnModifyStudent.setBounds(697, 32, 89, 23);
 		profGradTab.add(btnModifyStudent);
 		
+		//add only works if the ID is unique, will check every textfield and add the data to the database if the id is unique
 		JButton btnAddStudent = new JButton("Add");
 		btnAddStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -291,6 +303,7 @@ public class Professor extends JFrame {
 		tableStudent = new JTable();
 		scrollPane_1.setViewportView(tableStudent);
 		
+		//closes the current class gui and opens the login main menu 
 		JButton btnLogOut_1 = new JButton("LOG OUT");
 		btnLogOut_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -302,6 +315,8 @@ public class Professor extends JFrame {
 		profGradTab.add(btnLogOut_1);
 	}
 
+	// simple way for updating the JTable. Checks to see what is seen in the database and makes it appear in the JTable. 
+	//sqlite seems very simple for showing data
 	protected static void UpdateProfessor() {
 		String query = "select *  from Professor";
 		try {
@@ -312,6 +327,7 @@ public class Professor extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	//grade update is used to calculate what the letter grade will be based on the number grade given by the user.
 	protected static void UpdateStudent() {
 		String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"

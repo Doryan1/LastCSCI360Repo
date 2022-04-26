@@ -1,3 +1,8 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the admin GUI is to manage the rest of the main classes. They are able to add,modify,delete data from TA,Professor,Student, and Staff
+// This Class is a big bulk of the project and took the longest to set up, There are four MAin Class Managers that are seperated into tabs on this GUI
+
 package test;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,6 +40,7 @@ public class admin implements ActionListener {
 	 * @wbp.parser.entryPoint
 	 */
 	public void ad() {
+		//connects to the database
 		db = database.dbConnector();
 		JFrame frame = new JFrame("Admin Manager");
 		JPanel panel = new JPanel();
@@ -88,6 +94,8 @@ public class admin implements ActionListener {
 		btnAddProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// looks at the professor database to see what columns can be listed. In this case there are 8 values.
+					// uses the ID as a unique stature, the ID must be unique for the data in the other fields to be added.
 					String query = " insert into Professor (id,department,fname,lname,dob,cteaching,ctaught,ta) values (?,?,?,?,?,?,?,?) ";
 					pst = db.prepareStatement(query); // pst is called at the top as a static
 					pst.setString(1, txtIDProf.getText());
@@ -100,6 +108,7 @@ public class admin implements ActionListener {
 					pst.setString(8, txtTAProf.getText());
 					pst.execute();
 					JOptionPane.showMessageDialog(null, "input saved");
+					//update professor is called to automatically update the table after the task (button) is pressed
 					UpdateProfessor();
 					pst.close();
 				} catch (Exception e1) {
@@ -112,6 +121,7 @@ public class admin implements ActionListener {
 		JButton btnModifyProf = new JButton("Modify"); // This is the modify button for the Professor Manager
 		btnModifyProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//checks to see if the data wanting to be modified corresponds to an ID, ID must match for data to save into database. 
 				try {
 					String value1 = txtIDProf.getText();
 					String value2 = txtDepartmentProf.getText();
@@ -137,6 +147,7 @@ public class admin implements ActionListener {
 		btnModifyProf.setBounds(614, 289, 89, 23);
 		adminprofpanel.add(btnModifyProf);
 
+		//delete function is used by checking what row is selected based on where the user clicks. This will delete the whole row of data out of the database.
 		JButton btnDeleteProf = new JButton("Delete"); // This is the delete button for the Professor Manager
 		btnDeleteProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,6 +167,7 @@ public class admin implements ActionListener {
 		btnDeleteProf.setBounds(713, 289, 89, 23);
 		adminprofpanel.add(btnDeleteProf);
 
+		//update table is used to show what the database has in it onto the jtable
 		JButton btnUpdateProf = new JButton("Update Table"); // This is the update button for the Professor Manager
 		btnUpdateProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,6 +295,7 @@ public class admin implements ActionListener {
 		txtFNTA.setBounds(97, 103, 189, 38);
 		adminprofpanel_1.add(txtFNTA);
 
+		//same setup as professor add button but looks into the TA database to see what data can be added based on the textfields
 		JButton btnAddTA = new JButton("ADD");
 		btnAddTA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -309,6 +322,7 @@ public class admin implements ActionListener {
 		btnAddTA.setBounds(515, 289, 89, 23);
 		adminprofpanel_1.add(btnAddTA);
 
+		//same setup as professor add button but looks into the TA database to see what data can be modified based on the text fields. Checks for unique ID before modifying any data
 		JButton btnModifyTA = new JButton("Modify");
 		btnModifyTA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -335,7 +349,7 @@ public class admin implements ActionListener {
 		});
 		btnModifyTA.setBounds(614, 289, 89, 23);
 		adminprofpanel_1.add(btnModifyTA);
-
+		//same setup as professor delete button but looks into the TA database to see what data can be added based on the textfields.
 		JButton btnDeleteTA = new JButton("Delete");
 		btnDeleteTA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -447,6 +461,7 @@ public class admin implements ActionListener {
 		JButton btnLogOut_1 = new JButton("LOG OUT");
 		btnLogOut_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//deletes the main GUI and then goes to the main menu login
 				frame.dispose() ; 
 				new login() ; 
 			}
@@ -532,6 +547,7 @@ public class admin implements ActionListener {
 		JButton btnAddStaff = new JButton("ADD");
 		btnAddStaff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//look at line 97 for main explanation 
 				try {
 					String query = " insert into staff (id,department,fname,lname,dob) values (?,?,?,?,?) ";
 					pst = db.prepareStatement(query); // pst is called at the top as a static
@@ -553,6 +569,8 @@ public class admin implements ActionListener {
 		btnAddStaff.setBounds(571, 48, 89, 23);
 		adminstaffpanel.add(btnAddStaff);
 
+		//look at line 124 for better explanation
+		//modify is based on ID value, if ID doesn't match then nothing is modified, will return a error
 		JButton btnModifyStaff = new JButton("Modify");
 		btnModifyStaff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -562,6 +580,7 @@ public class admin implements ActionListener {
 					String value3 = txtFNStaff.getText();
 					String value4 = txtLNStaff.getText();
 					String value5 = txtDOBStaff.getText();
+					//query line up slightly different for a cool look , doesn't change anything , you can change back if you want 
 					String query = "update staff set id='" + value1 
 							+ "',department='" + value2 
 							+ "',fname = '" + value3
@@ -581,6 +600,8 @@ public class admin implements ActionListener {
 		btnModifyStaff.setBounds(670, 48, 89, 23);
 		adminstaffpanel.add(btnModifyStaff);
 
+		//look at line 150 fir better explanation 
+		// based on row clicked it will delete all data in that specific row
 		JButton btnDeleteStaff = new JButton("Delete");
 		btnDeleteStaff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -826,6 +847,8 @@ public class admin implements ActionListener {
 		frame.setVisible(true);
 	}
 
+	//looks at  the professor DB to display all the data the database has
+	//this data appears into the specific manager JTable 
 	protected static void UpdateProfessor() {
 		String query = "select *  from Professor";
 		try {
@@ -837,6 +860,8 @@ public class admin implements ActionListener {
 		}
 	}
 
+	//looks at  the TA DB to display all the data the database has
+		//this data appears into the specific manager JTable 
 	protected static void UpdateTA() {
 		String query = "select *  from TA";
 		try {
@@ -847,7 +872,8 @@ public class admin implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
+		//looks at  the Staff DB to display all the data the database has
+		//this data appears into the specific manager JTable 
 	protected static void UpdateStaff() {
 		String query = "select *  from staff";
 		try {
@@ -859,6 +885,9 @@ public class admin implements ActionListener {
 		}
 	}
 	
+	
+	//update student is like the other update methods but it checks the numerical grade column before it updates. Depending on the update, thje manager will tell the database to make another column to put the letter grade data in. 
+	//this column is seen as "Letter_Grade"
 	protected static void UpdateStudent() {
 			String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 					+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"

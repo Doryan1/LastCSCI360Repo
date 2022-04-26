@@ -1,3 +1,7 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the student GUI is to allow the student user to search his/her grades specifically
+
 package test;
 import java.sql.*;
 import javax.swing.*;
@@ -11,7 +15,7 @@ public class Student extends JFrame {
 	private JPanel contentPane;
 	private JTextField tFsearch;
 	private static JTable table;
-	static Connection db = null;
+	static Connection db = null;// static connection connects to the database 
 	private JTextField tFsearch2;
 	
 	public void run() { //Launch the application
@@ -34,22 +38,7 @@ public class Student extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		tFsearch = new JTextField();
-//		tFsearch.addKeyListener(new KeyAdapter() {
-//			public void keyReleased(KeyEvent e) {
-//				String search = tFsearch.getText();
-//				try {
-//					if (search.matches("^[0-9]+$")) {
-//						String query = "SELECT * FROM Student where First_Name LIKE '%"+search+"%'" ; 
-//						PreparedStatement pst = db.prepareStatement(query);
-//						ResultSet rs = pst.executeQuery();
-//						table.setModel(DbUtils.resultSetToTableModel(rs));
-//						//GradeUpdate(); 					
-//					}
-//				} catch (Exception e1) {
-//					JOptionPane.showMessageDialog(null, e1);
-//				}
-//			}
-//		});
+
 		tFsearch.setBounds(7, 122, 139, 20);
 		contentPane.add(tFsearch);
 		tFsearch.setColumns(10);
@@ -76,14 +65,15 @@ public class Student extends JFrame {
 				String fn = tFsearch.getText() ; 
 				String ln = tFsearch2.getText() ; 
 				try {
-					//this if statement makes sure only he student with the specified first name and last name can see their grades 
 					if(ln.matches("^[A-Za-z0-9_.]+$")) {
+						// string query calls to the database if the input is a first name and last name that match the db. 
 					String query = "SELECT First_Name,Last_Name,DOB,course,semester,Numerical_Grade, Letter_Grade FROM Student where First_Name LIKE '%"+fn+"%'AND  Last_Name like '%"+ln+"%'"  ; 
 						PreparedStatement pst = db.prepareStatement(query);
 					ResultSet rs = pst.executeQuery();
 					table.setModel(DbUtils.resultSetToTableModel(rs));
 					}
 					else {
+						//this if statement makes sure only the student with the specified first name and last name can see their grades 
 						JOptionPane.showMessageDialog(null, "student not found , make sure first name and last name is entered") ; 
 					}
 				}catch (Exception e1) {
@@ -126,6 +116,7 @@ public class Student extends JFrame {
 		});
 	}
 
+	//grade update is used to calculate what the letter grade will be based on the number grade given by the user.
 	protected static void GradeUpdate() {
 		String query = "SELECT id, First_Name, Last_Name, DOB, course, semester, Numerical_Grade, CASE\r\n"
 				+ "	WHEN Numerical_Grade >=90 THEN \"A\"\r\n"

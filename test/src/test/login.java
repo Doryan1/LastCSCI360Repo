@@ -1,3 +1,7 @@
+// Frank The Management System 
+// This Project was done by Doryan B, Adam K, Brian K, Noah V, and Haley M
+// The purpose of the Login GUI is to be the main menu for the system. This is where everytihng starts
+
 package test;
 import java.awt.*;
 import java.sql.*;
@@ -7,6 +11,7 @@ import java.awt.event.*;
 public class login {
 	private JFrame frmDatabaseLogin;
 	public static void main(String[] args) { // Launch the application
+		//set up to show as soon as the program is ran
 		JOptionPane.showMessageDialog(null, "THIS SOFTWARE IS NOT TO BE USED FOR UNIVERSITY MANAGEMENT PURPOSE",
 				"Disclaimer", JOptionPane.INFORMATION_MESSAGE);
 		EventQueue.invokeLater(new Runnable() {
@@ -32,6 +37,7 @@ public class login {
 		db = database.dbConnector(); // Calls the dbconnector connection form database.java
 	}
 
+	//simple gui creation setup 
 	private void initialize() { // Initialize the contents of the frame.
 		frmDatabaseLogin = new JFrame();
 		frmDatabaseLogin.setVisible(true);
@@ -55,6 +61,7 @@ public class login {
 		frmDatabaseLogin.getContentPane().add(tFLogin);
 		tFLogin.setColumns(10);
 
+		//quit is based on stopping the full application if button is pressed
 		JButton btnQuit = new JButton("Quit");
 		btnQuit.setBounds(324, 247, 103, 40);
 		frmDatabaseLogin.getContentPane().add(btnQuit);
@@ -91,12 +98,14 @@ public class login {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String user = tFLogin.getText();
+				//calls the database to see if the id put in the textbox matches
 				try {
 					String query = "Select * from Login where id =?";
 					PreparedStatement pst = db.prepareStatement(query);
 					pst.setString(1, tFLogin.getText());
 					ResultSet rs = pst.executeQuery();
 					int count = 0;
+					// if it matches it will use this case statment to open up a specific gui, keyword has to be added into database if changed or it will not be recognized.
 					while (rs.next()) {
 						count = count + 1;
 					}
